@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
@@ -6,10 +7,13 @@ import OverviewView from './views/OverviewView';
 import CitiesView from './views/CitiesView';
 import StatsView from './views/StatsView';
 import CalculatorView from './views/CalculatorView';
+import EmbedOverview from './pages/EmbedOverview';
+import EmbedCities from './pages/EmbedCities';
+import EmbedStats from './pages/EmbedStats';
+import EmbedCalculator from './pages/EmbedCalculator';
 import { zbeData } from './data/zbeData';
 
-function App() {
-  const [activeTab, setActiveTab] = useState('overview');
+function AppContent() {
   const [selectedCity, setSelectedCity] = useState(null);
   const [filter, setFilter] = useState('all');
 
@@ -32,33 +36,26 @@ function App() {
 
       <div className="relative z-10 p-6 md:p-8">
         <Header />
-        
-        <Navigation 
-          activeTab={activeTab} 
-          onTabChange={setActiveTab} 
-        />
+        <Navigation />
 
         <main>
-          {activeTab === 'overview' && (
-            <OverviewView zbeData={zbeData} />
-          )}
-
-          {activeTab === 'cities' && (
-            <CitiesView 
-              zbeData={zbeData}
-              filter={filter}
-              onFilterChange={setFilter}
-              onCityClick={setSelectedCity}
+          <Routes>
+            <Route path="/" element={<Navigate to="/general" replace />} />
+            <Route path="/general" element={<OverviewView zbeData={zbeData} />} />
+            <Route 
+              path="/ciudades" 
+              element={
+                <CitiesView 
+                  zbeData={zbeData}
+                  filter={filter}
+                  onFilterChange={setFilter}
+                  onCityClick={setSelectedCity}
+                />
+              } 
             />
-          )}
-
-          {activeTab === 'stats' && (
-            <StatsView zbeData={zbeData} />
-          )}
-
-          {activeTab === 'calculator' && (
-            <CalculatorView zbeData={zbeData} />
-          )}
+            <Route path="/estadisticas" element={<StatsView zbeData={zbeData} />} />
+            <Route path="/calculadora" element={<CalculatorView zbeData={zbeData} />} />
+          </Routes>
         </main>
 
         <CityModal 
@@ -67,6 +64,23 @@ function App() {
         />
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* Rutas completas con navegación */}
+        <Route path="/*" element={<AppContent />} />
+        
+        {/* Rutas para embeber (sin header ni navegación) */}
+        <Route path="/embed/general" element={<EmbedOverview />} />
+        <Route path="/embed/ciudades" element={<EmbedCities />} />
+        <Route path="/embed/estadisticas" element={<EmbedStats />} />
+        <Route path="/embed/calculadora" element={<EmbedCalculator />} />
+      </Routes>
+    </Router>
   );
 }
 
