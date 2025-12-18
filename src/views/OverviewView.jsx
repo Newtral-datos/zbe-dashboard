@@ -53,8 +53,7 @@ export default function OverviewView({ zbeData }) {
         <div className="bg-gray-50 rounded-xl p-12 text-center min-h-[400px] flex flex-col items-center justify-center">
           <MapIcon size={64} className="text-[#01f3b3] mb-4 opacity-50" />
           <p className="text-gray-600 text-lg max-w-lg mb-8">
-            Aquí se mostraría un mapa interactivo con todas las Zonas de Bajas Emisiones.
-            Puedes integrar Leaflet, Google Maps o Mapbox.
+            Aquí debería ir un mapita que aún no he podido hacer
           </p>
           <div className="flex gap-4 flex-wrap justify-center">
             {zbeData.slice(0, 5).map((city) => (
