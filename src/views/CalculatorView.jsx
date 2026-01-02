@@ -90,6 +90,23 @@ export default function CalculatorView({ zbeData }) {
             </select>
           </div>
 
+          {/* Iframe de matrículas */}
+          <div className="bg-white rounded-xl p-6 mb-8 border border-gray-200 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">
+              Consulta tu etiqueta ambiental por matrícula
+            </h3>
+            <div className="w-full overflow-hidden rounded-lg border border-gray-300">
+              <iframe
+                src="https://playground.pabloaccino.es/matriculas/?v=2"
+                width="100%"
+                height="600"
+                frameBorder="0"
+                title="Consulta etiqueta ambiental por matrícula"
+                className="w-full"
+              />
+            </div>
+          </div>
+
           <div className="bg-gradient-to-r from-[#01f3b3]/10 to-[#00d2ff]/10 rounded-xl p-6 border border-[#01f3b3]/30 mb-8">
             <div className="flex items-start gap-3 mb-3">
               <Info size={20} className="text-[#01f3b3] flex-shrink-0 mt-0.5" />
